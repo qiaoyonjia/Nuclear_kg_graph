@@ -1,0 +1,102 @@
+{% extends "base.html" %} {% block mainbody %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+<!--            overview start-->
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="page-header"><i class="fa fa-search"></i> 问题模板 </h3>
+                    <ol class="breadcrumb">
+                        <li><i class="fa fa-home"></i><a href="\">Home</a></li>
+                        <li><i class="fa fa-search"></i>问题模板</li>
+                    </ol>
+                </div>
+            </div>
+
+            <section class="panel panel-default">
+                <header class="panel-heading">
+                     问题模板列表:
+                </header>
+                <div class="panel-body">
+                    <ul>
+                        <li>1.目的是什么/有什么目的 （颁布电磁辐射环境保护管理办法的目的是什么/有什么目的）</li>
+                        <li>2.依据是什么/有什么依据 （颁布电磁辐射环境保护管理办法的依据是什么/有什么依据）</li>
+                        <li>3.是什么/指的是什么/解释是什么/定义为 （核壳层模型是什么/指的是什么/解释是什么/定义为）</li>
+                        <li>4.适用于什么/适合什么领域 （放射工作人员健康管理规定适用于什么/适合什么领域）</li>
+                        <li>5.有什么权利/权利是 （省级以上人民政府生态环境主管部门有什么权利/权利是）</li>
+                        <li>6.有什么奖励/奖励是 （完成核事故应急响应任务的单位和个人有什么奖励/奖励是）</li>
+                        <li>7.有什么处罚/有什么后果/会造成什么后果 （玩忽职守，引起核事故发生有什么处罚/有什么后果/会造成什么后果）</li>
+                        <li>8.包含什么/包括什么/分为那几类 （粒子加速器包含什么/包括什么/分为那几类）</li>
+                        <li>9.有什么职责/有什么责任（国务院环境保护主管部门有什么职责/有什么责任）</li>
+                        <li>10.性质是/有什么性质（原子的性质是/有什么性质）</li>
+                        <li>11.提出时间是/发明时间是（粒子加速器的提出时间是/发明时间是）</li>
+                        <li>12.提出者是/发明者是（核脉冲火箭的提出者是/发明者是）</li>
+                        <li>13.所属领域是/属于什么领域（同步辐射的所属领域是/属于什么领域）</li>
+                        <li>14.有什么应用/应用于（核壳层模型有什么应用/应用于）</li>
+                        <li>15.有什么优点/优点是（离子注入技术有什么优点/的优点是）</li>
+                        <li>16.有什么缺点/缺点是（射线检测有什么缺点/的缺点是）</li>
+                        <li>17.特点是/有什么特点（同步辐射光源的特点是/有什么特点）</li>
+                    </ul>
+<!--                    <form action="/template" method="post">-->
+<!--                        <div class="form-group">-->
+<!--                            {% csrf_token %}-->
+<!--                            <textarea type="text" name="user_text" class="form-control" placeholder="Enter text" style="height:140px"> </textarea>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-4"></div>-->
+<!--                        <div class="col-md-4">-->
+<!--                            <button type="submit" class="btn-primary btn-lg btn-block"> 识别文本实体并补全图谱 </button>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-4"></div>-->
+<!--                    </form>-->
+                </div>
+            </section>
+            <!--collapse start-->
+<!--            <div class="panel-group m-bot20" id="accordion">-->
+<!--                <div class="panel panel-default">-->
+<!--                    <div class="panel-heading">-->
+<!--                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">-->
+<!--                                    [查看实体列表]-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                    <div id="collapseOne" class="panel-collapse collapse in">-->
+<!--                        <div class="panel-body">-->
+<!--                            {% autoescape off %}-->
+<!--                            <h5>{{ rlt }}</h5>-->
+<!--                            {% endautoescape %}-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--            </div>-->
+
+        </div>
+
+    </div>
+</div>
+<script src="/static/js/jquery-1.8.3.min.js"></script>
+
+{% if ret %}
+<script type="text/javascript">
+    var ret_dict = {{ret|safe}} ;
+    //将所有的答案列在tableData中,界面左侧答案列表
+    tableData = [];
+    for(var i = 0 ;i< ret_dict['answer'].length;i++){
+        answer = {};
+        answer['answer'] = ret_dict['answer'][i];
+        tableData.push(answer)
+    }
+
+    // console.log('tableData==',tableData)
+    jQuery(function () {
+        $('.table').footable({
+            "columns":[{"name":"answer",title:"答案"}],
+            "rows": tableData
+        });
+
+    });
+</script>
+{% endif %}
+
+{% endblock %}
